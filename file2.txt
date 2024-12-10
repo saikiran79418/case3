@@ -1,2 +1,32 @@
 this is case2
+---
+- hosts:Ansiblehost
+ tasks:
+- name: create docker image
+  command: docker build -t hello_world:latest .
+  args:
+  chdir: /opt/docker
+- name: create tag to push image on to dockerhub
+  command: docker tag hello_world:latest y21acs478/hello_world:latest
+- name: push docker image
+  command: docker push y21acs478/hello_world:latest
+in deploy_hello_world.yml
+---
+- hosts: dockerhost
+  tasks:
+- name: create container
+  command: docker run -d --name hello_world_server -p 8089:8080 y21acs478/hello_world
+
+in docker
+sudo chmod 777 /var/run/docker.socket
+ina ans
+cd /opt/
+ls
+mk dock
+sudo chown -R ansadmin:ansadmin docker
+cd
+nano hello.yml
+
+ansible-playbook deplou .yml
+docker login
 
